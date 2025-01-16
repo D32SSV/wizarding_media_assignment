@@ -6,7 +6,7 @@ export default {
       fontFamily: {
         jockey: ["Jockey One", "sans-serif"],
         jose: ["Josefin Sans, sans-serif"],
-      },
+      }
     },
   },
   plugins: [],
