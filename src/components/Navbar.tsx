@@ -3,7 +3,7 @@ import user from "../assets/icons/user.svg";
 
 const Navbar = () => {
   return (
-    <nav className="flex justify-between items-stretch font-jose">
+    <nav className="flex justify-between items-stretch font-jose mb-8">
       <p className="no-underline text-black font-normal text-3xl">LOGO</p>
       <div className="min-w-max rounded-full px-6 py-3 shadow-[#E1C9F7] shadow-lg">
         <input
