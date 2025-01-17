@@ -6,7 +6,10 @@ export default {
       fontFamily: {
         jockey: ["Jockey One", "sans-serif"],
         jose: ["Josefin Sans, sans-serif"],
-      }
+      },
+      colors: {
+        "custom-thumb": "#A58FB9",
+      },
     },
   },
   plugins: [],
