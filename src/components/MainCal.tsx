@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import ScheduleMeeting from "./ScheduleMeeting";
+import { useNavigate } from "react-router-dom";
 
 const ContentCalendar = () => {
+  const navigate = useNavigate();
   const date = new Date();
   const [selectedMonth, setSelectedMonth] = useState(date.getMonth()); // 0-based month
   const [selectedYear, setSelectedYear] = useState(date.getFullYear());
@@ -134,7 +136,10 @@ const ContentCalendar = () => {
             {[...Array(daysInMonth).keys()].map((day) => (
               <div
                 key={day}
-                className="p-2 h-40 w-full border shadow-sm text-center flex flex-col items-start justify-start gap-2"
+                className="p-2 h-40 w-full border shadow-sm text-center flex flex-col items-start justify-start gap-2 hover:cursor-pointer"
+                onClick={() => {
+                  navigate("/allmeetings");
+                }}
               >
                 <span className="text-xs font-bold text-[#A58FB9]">
                   {day + 1}

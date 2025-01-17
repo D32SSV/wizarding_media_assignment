@@ -6,6 +6,11 @@ import WelcomeUser from "./components/WelcomeUser";
 import ViewMeeting from "./components/ViewMeeting";
 import AllMeetings from "./components/AllMeetings";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import About from "./components/defaultPages/About";
+import Notfound from "./components/defaultPages/notfound";
+import Features from "./components/defaultPages/Features";
+import Pricing from "./components/defaultPages/Pricing";
+import Dashboard from "./components/defaultPages/Dashboard";
 
 function App() {
   return (
@@ -19,6 +24,11 @@ function App() {
           <Route path="/allmeetings" element={<AllMeetings />} />
           <Route path="/view" element={<ViewMeeting />} />
           <Route path="/create" element={<AddMeeting />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/features" element={<Features />} />
+          <Route path="*" element={<Notfound />} />
         </Routes>
       </div>
     </Router>

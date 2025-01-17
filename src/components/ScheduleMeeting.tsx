@@ -1,7 +1,12 @@
+import { useNavigate } from "react-router-dom";
 import img from "../../src/assets/icons/meeting.png";
 const ScheduleMeeting = () => {
+  const navigate = useNavigate()
   return (
-    <div className="shadow-[#E1C9F7] shadow-lg flex flex-col justify-center items-center w-max rounded-[20px] h-max">
+    <div
+      className="shadow-[#E1C9F7] shadow-lg flex flex-col justify-center items-center w-max rounded-[20px] h-max hover:cursor-pointer"
+      onClick={() => {navigate("/create")}}
+    >
       <img
         src={img}
         alt="schedule a meeting"

@@ -1,12 +1,17 @@
 import ScheduleMeeting from "./ScheduleMeeting";
 import cal from "../assets/icons/cal.svg";
+import { useNavigate } from "react-router-dom";
 const LandingCalender = () => {
+  const navigate = useNavigate();
   const currentDate = new Date();
   return (
     <div className="shadow-[#E1C9F7] shadow-lg w-max flex rounded-[20px] py-8 border px-16">
       <div className="flex gap-8">
         <div className="flex flex-col p-4">
-          <div className="p-4 flex items-center justify-center flex-col">
+          <div
+            className="p-4 flex items-center justify-center flex-col hover:cursor-pointer"
+            onClick={() => navigate("/maincal")}
+          >
             <img src={cal} alt="" />
             <p className="font-jose text-xl">Upcoming</p>
           </div>
