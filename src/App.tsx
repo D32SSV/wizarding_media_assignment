@@ -4,6 +4,8 @@ import AddMeeting from "./components/AddMeeting";
 import Navbar from "./components/Navbar";
 import WelcomeUser from "./components/WelcomeUser";
 import ViewMeeting from "./components/ViewMeeting";
+import MeetingCard from "./components/common/MeetingCard";
+import AllMeetings from "./components/AllMeetings";
 
 function App() {
   return (
@@ -12,9 +14,9 @@ function App() {
       <WelcomeUser name="Shaktiman" />
       <div className="flex items-center justify-around">
         {/* <LandingCalender /> */}
-        {/* <MainCal /> */}
+        {/* <AddMeeting /> */}
       </div>
-        <ViewMeeting />
+      <AllMeetings />
     </>
   );
 }

@@ -75,7 +75,7 @@ const ContentCalendar = () => {
     <div className="p-4 min-h-screen">
       <div className="">
         <div className="flex items-center justify-center mb-4">
-          <div className="text-xl font-semibold text-gray-800 flex items-center justify-center gap-4">
+          <div className="text-xl font-semibold flex items-center justify-center gap-4">
             {/* Dropdown for Year */}
             <select
               value={selectedYear}
