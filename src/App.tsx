@@ -1,5 +1,5 @@
+import LandingCalender from "./components/LandingCalender";
 import Navbar from "./components/Navbar";
-import ScheduleMeeting from "./components/ScheduleMeeting";
 import WelcomeUser from "./components/WelcomeUser";
 
 function App() {
@@ -7,7 +7,9 @@ function App() {
     <>
       <Navbar />
       <WelcomeUser name="Shaktiman" />
-      <ScheduleMeeting />
+      <div className="flex items-center justify-around">
+        <LandingCalender />
+      </div>
     </>
   );
 }
