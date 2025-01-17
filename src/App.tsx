@@ -1,8 +1,9 @@
 import LandingCalender from "./components/LandingCalender";
 import MainCal from "./components/MainCal";
-import MeetingForm from "./components/MeetingForm";
+import AddMeeting from "./components/AddMeeting";
 import Navbar from "./components/Navbar";
 import WelcomeUser from "./components/WelcomeUser";
+import ViewMeeting from "./components/ViewMeeting";
 
 function App() {
   return (
@@ -12,8 +13,8 @@ function App() {
       <div className="flex items-center justify-around">
         {/* <LandingCalender /> */}
         {/* <MainCal /> */}
-        <MeetingForm />
       </div>
+        <ViewMeeting />
     </>
   );
 }

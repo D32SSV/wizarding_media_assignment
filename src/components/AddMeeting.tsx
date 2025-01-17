@@ -1,4 +1,4 @@
-const MeetingForm = () => {
+const AddMeeting = () => {
   return (
     <div className="p-8 flex flex-col items-start justify-center gap-4 shadow-md shadow-[#E1C9F7E0] rounded-[20px] font-jose w-2/6">
       <p className="text-2xl">Schedule New Meeting</p>
@@ -67,4 +67,4 @@ const MeetingForm = () => {
   );
 };
 
-export default MeetingForm;
+export default AddMeeting;
