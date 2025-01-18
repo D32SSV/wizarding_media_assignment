@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ScheduleMeeting from "./ScheduleMeeting";
 import { useNavigate } from "react-router-dom";
+import { api } from "../App";
 
 const ContentCalendar = () => {
   const navigate = useNavigate();
@@ -9,10 +10,14 @@ const ContentCalendar = () => {
   const [selectedYear, setSelectedYear] = useState(date.getFullYear());
   const [daysInMonth, setDaysInMonth] = useState(
     getDaysInMonth(selectedMonth, selectedYear)
-  ); // Days in month
+  );
   const [firstDayOfMonth, setFirstDayOfMonth] = useState(
     getFirstDayOfMonth(selectedMonth, selectedYear)
-  ); // First day of the month (0 = Sunday, 1 = Monday, etc.)
+  );
+
+  const [meetingData, setMeetingData] = useState<{
+    [key: string]: { _id: string; title: string; time: string }[];
+  }>({});
 
   function getDaysInMonth(month: number, year: number) {
     const daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -27,10 +32,10 @@ const ContentCalendar = () => {
     return daysInMonth[month];
   }
 
-  // Get the first day of the month (0 = Sunday, 1 = Monday, etc.)
   function getFirstDayOfMonth(month: number, year: number) {
-    return new Date(year, month, 1).getDay(); // This returns a value between 0 (Sunday) and 6 (Saturday)
+    return new Date(year, month, 1).getDay();
   }
+
   const days = [
     "Sunday",
     "Monday",
@@ -69,6 +74,24 @@ const ContentCalendar = () => {
   };
 
   useEffect(() => {
+    const fetchedData = async () =>
+      await fetch(
+        `${api}/getmeetingbymonth?month=${selectedMonth + 1}&year=${selectedYear}`
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data, selectedMonth + 1, selectedYear);
+          setMeetingData(data.data);
+        });
+    try {
+      fetchedData();
+    } catch (error) {
+      console.error(error);
+      throw new Error();
+    }
+  }, [selectedMonth, selectedYear]);
+
+  useEffect(() => {
     setDaysInMonth(getDaysInMonth(selectedMonth, selectedYear));
     setFirstDayOfMonth(getFirstDayOfMonth(selectedMonth, selectedYear));
   }, [selectedMonth, selectedYear]);
@@ -78,7 +101,6 @@ const ContentCalendar = () => {
       <div className="">
         <div className="flex items-center justify-center mb-4">
           <div className="text-xl font-semibold flex items-center justify-center gap-4">
-            {/* Dropdown for Year */}
             <select
               value={selectedYear}
               onChange={handleYearChange}
@@ -94,7 +116,7 @@ const ContentCalendar = () => {
                 </option>
               ))}
             </select>
-            {/* Dropdown for Month */}
+
             <select
               value={selectedMonth}
               onChange={handleMonthChange}
@@ -118,7 +140,6 @@ const ContentCalendar = () => {
           <ScheduleMeeting />
 
           <div className="grid grid-cols-7 divide-[#F7CAC9] divide-y-2 divide-x-2 shadow-[#E1C9F7] shadow-lg border rounded-lg h-[70dvh] overflow-y-auto scrollable-calendar">
-            {/* Days of the Week */}
             {days.map((day) => (
               <div key={day} className="text-sm font-semibold text-center p-6">
                 <div className="py-4 px-6 bg-[#A58FB9] text-white rounded-full">
@@ -133,35 +154,44 @@ const ContentCalendar = () => {
             ))}
 
             {/* Calendar Days */}
-            {[...Array(daysInMonth).keys()].map((day) => (
-              <div
-                key={day}
-                className="p-2 h-40 w-full border shadow-sm text-center flex flex-col items-start justify-start gap-2 hover:cursor-pointer"
-                onClick={() => {
-                  navigate("/allmeetings");
-                }}
-              >
-                <span className="text-xs font-bold text-[#A58FB9]">
-                  {day + 1}
-                </span>
-                {/* Example Content */}
-                {day % 7 === 0 && (
-                  <span className="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">
-                    Ad Hoc
+            {[...Array(daysInMonth).keys()].map((day) => {
+              const dayStr = `${(day + 1).toString().padStart(2, "0")}-${(selectedMonth + 1).toString().padStart(2, "0")}-${selectedYear}`;
+              const meetings = meetingData[dayStr] || [];
+
+              return (
+                <div
+                  key={day}
+                  className={`p-2 h-40 w-full border shadow-sm text-center flex flex-col items-start justify-start gap-2 ${meetings.length > 0 ? "hover:cursor-pointer" : ""}`}
+                  onClick={() => {
+                    if (meetings.length > 0) {
+                      navigate("/allmeetings");
+                    }
+                  }}
+                >
+                  <span className="text-xs font-bold text-[#A58FB9]">
+                    {day + 1}
                   </span>
-                )}
-                {day % 5 === 0 && (
-                  <span className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
-                    Real Myths
-                  </span>
-                )}
-                {day % 3 === 0 && (
-                  <span className="text-xs bg-red-100 text-red-800 px-2 py-1 rounded">
-                    Latent Rxn
-                  </span>
-                )}
-              </div>
-            ))}
+
+                  {/* Display meeting titles for this date */}
+                  {meetings.length > 0 ? (
+                    meetings.map((meeting) => (
+                      <span
+                        key={meeting._id}
+                        className="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`/view/${meeting._id}`);
+                        }}
+                      >
+                        {meeting.title}
+                      </span>
+                    ))
+                  ) : (
+                    <span className="text-xs text-gray-500">No meetings</span>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

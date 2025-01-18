@@ -11,6 +11,7 @@ import Notfound from "./components/defaultPages/notfound";
 import Features from "./components/defaultPages/Features";
 import Pricing from "./components/defaultPages/Pricing";
 import Dashboard from "./components/defaultPages/Dashboard";
+export const api = "http://localhost:4000"
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
           <Route path="/" element={<LandingCalender />} />
           <Route path="/maincal" element={<MainCal />} />
           <Route path="/allmeetings" element={<AllMeetings />} />
-          <Route path="/view" element={<ViewMeeting />} />
+          <Route path="/view/:id" element={<ViewMeeting />} />
           <Route path="/create" element={<AddMeeting />} />
           <Route path="/about" element={<About />} />
           <Route path="/dashboard" element={<Dashboard />} />
