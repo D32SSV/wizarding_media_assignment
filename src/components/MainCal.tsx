@@ -164,7 +164,7 @@ const ContentCalendar = () => {
                   className={`p-2 h-40 w-full border shadow-sm text-center flex flex-col items-start justify-start gap-2 ${meetings.length > 0 ? "hover:cursor-pointer" : ""}`}
                   onClick={() => {
                     if (meetings.length > 0) {
-                      navigate("/allmeetings");
+                      navigate("/allmeetings", { state: { meetings } });
                     }
                   }}
                 >

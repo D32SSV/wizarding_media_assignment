@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import { api } from "../App";
 import { useParams, useNavigate } from "react-router-dom";
 
-interface Meeting {
+export interface Meeting {
+  _id: string;
   title: string;
   type: string;
   date: string;
