@@ -11,7 +11,7 @@ import Notfound from "./components/defaultPages/notfound";
 import Features from "./components/defaultPages/Features";
 import Pricing from "./components/defaultPages/Pricing";
 import Dashboard from "./components/defaultPages/Dashboard";
-export const api = "http://localhost:4000"
+export const api = "https://wizarding-media-backend-assignment.onrender.com";
 
 function App() {
   return (
